@@ -1,3 +1,7 @@
 # About the project
-    React project using my express_api repo to develop a website with social media features and style.
-    Styled with materialUI
+    React project.
+    Used restful api to connect backend with front end.
+    Styled with materialUI.
+
+# Status
+    Under development.
