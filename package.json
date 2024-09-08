@@ -1,0 +1,17 @@
+{
+  "name": "rnet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "back": "nodemon back/index.js",
+    "front": "npm run dev --prefix front",
+    "dev": "concurrently \"npm run back\" \"npm run front\""
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
+  }
+}
