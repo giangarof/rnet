@@ -1,0 +1,67 @@
+import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
+import axios from 'axios';
+
+import {Box, TextField, Button, Typography, Link, Snackbar, SnackbarContent} from '@mui/material';
+
+import NotificationError from './errors/NotificationError.jsx';
+import NotificationSuccess from './errors/NotificationSuccess.jsx';
+
+const LoginForm = () => {
+    const navigate = useNavigate()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const [errorMsg, setErrorMsg] = useState('')
+
+    const location = useLocation();
+    // const messageSuccess = location.state.message
+
+    const login = async() => { 
+        setErrorMsg('')
+        try {
+            const credentials = {email,password};
+            const user = await axios.post('/api/user/login', credentials)
+                if(user.status === 200){
+                    navigate(`/profile/${user.data.profile._id}`)
+                    // console.log(user)
+                } 
+            
+        } catch (error) {
+            setErrorMsg(error.response.data)
+        } 
+    }
+
+    const form = {
+        display:'flex',
+        flexDirection:'column',
+        gap:'2rem',
+    }
+
+    return (
+        <>
+            <Box
+                component="form"
+                sx={form}
+                noValidate
+                autoComplete="off"
+                >
+                <Typography variant='h4'>Login</Typography>
+                <TextField value={email} onChange={(e) => setEmail(e.target.value)} id="outlined-basic" label="Email" variant="outlined" />
+                <TextField value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" />
+                <Button variant='contained' onClick={login}>Log in</Button>
+                <Typography>
+                    Are you a new user?
+                    <Link sx={{ml:"1rem"}} href="/signup">Signup</Link>
+                </Typography>
+
+                <NotificationError message={errorMsg}/>
+                <NotificationSuccess message={errorMsg}/>
+                
+                
+            </Box>
+        </>
+    )
+}
+
+export default LoginForm;

@@ -6,6 +6,7 @@ const login = async (req,res) => {
         const {email, password} = req.body;
         const user = await User.findOne({email})
         // console.log(user)
+
         if(user && (await user.matchPassword(password))){
             generateToken(res, user._id)
             res.status(200).send({message:'sign in', profile: user})
@@ -25,13 +26,16 @@ const signup = async (req,res) => {
         const verifyIfEmailExits = await User.findOne({email})
         
         if(verifyIfEmailExits){
-            res.status(400)
-            throw new Error('Email already in use. Please, use another email.')
-        } 
+            res.status(400).json({message:'Email already in use. Please, use another email.'})
+            // res.status(400)
+            // throw new Error('Email already in use. Please, use another email.')
+        } else {
             const newUser = await User.create({
                 name, username, email, password
             })
-            res.status(201).json({message: "User created successfully", created: newUser ? newUser : "Something went wrong, Try again."})
+            res.status(201).json({message: "User created successfully! Please, Login.", created: newUser ? newUser : "Something went wrong, Try again."})
+
+        }
 
         
     } catch (error) {
