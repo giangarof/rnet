@@ -14,22 +14,22 @@ import Profile from './screens/Profile.jsx'
 
 const router =  createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App/>}>
-      <Route index={true} path="/" element={<Home/>}/>
+      <Route path='/' element={<App/>}>
+        <Route index={true} path="/" element={<Home/>}/>
 
-      {/* User */}
-      <Route path="/signup" element={<Signup/>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/profile/:userId" element={<Profile/>}/>
+        {/* User */}
+        <Route path="/signup" element={<Signup/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/profile/:userId" element={<Profile/>}/>
 
-      {/* Posts */}
+        {/* Posts */}
 
-    </Route>
+      </Route>
   )
 )
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   </React.StrictMode>,
 )

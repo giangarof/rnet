@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Error_Credentials from './errors/NotificationError.jsx';
+import NotificationError from './errors/NotificationError.jsx';
 
 const SignupForm = () => {
     const [name, setName] = useState('')
@@ -22,15 +23,15 @@ const SignupForm = () => {
         try {
             const user = await axios.post('/api/user/signup', credentials)
             if(user.status === 201){
-                console.log(user)
-                // setErrorMsg(user.data?.message)
+                // console.log(user)
+                setErrorMsg(user.data?.message || `Try again later.`)
                 navigate('/login', { state: { message: user.data?.message || 'Signup successful' } });
                 // return user;
             } 
         } catch (error) {
-            setErrorMsg(error.response?.data?.message)
-            console.error(error.response?.data?.message || 'An error occurred');
-            // console.log(error)
+            setErrorMsg(error.response.data)
+            // console.error(error.response?.data?.message || 'An error occurred');
+            console.log(error.response.data)
         }
     }
 
@@ -59,7 +60,7 @@ const SignupForm = () => {
                     <Link  sx={{ml:"1rem"}} href="/login">Login</Link>
                 </Typography>
 
-                <Error_Credentials message={errorMsg} />
+                <NotificationError message={errorMsg} />
             </Box>
         </>
     )

@@ -6,4 +6,4 @@
 # Status
     Under development.
 
-    Working in the user.
+    Working in the user profile.

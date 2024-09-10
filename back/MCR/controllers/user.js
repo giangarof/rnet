@@ -9,7 +9,7 @@ const login = async (req,res) => {
 
         if(user && (await user.matchPassword(password))){
             generateToken(res, user._id)
-            res.status(200).send({message:'sign in', profile: user})
+            res.status(200).send({message:'Welcome back!', profile: user})
         } else{
             res.status(404).send(`User not found.`)
         }

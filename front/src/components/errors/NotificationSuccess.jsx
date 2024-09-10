@@ -6,13 +6,13 @@ const NotificationSuccess = () => {
     const [open, setOpen]= useState(false)
     const location = useLocation();
     
-    const messageCreatedUsed = location.state?.message
+    const message = location.state?.message
 
     useEffect(() => {
-        if(messageCreatedUsed){
+        if(message){
             setOpen(true)
         } 
-    },[messageCreatedUsed])
+    },[message])
 
     const handleClose = (e, reason) => {
         if (reason === 'clickaway') {
@@ -27,7 +27,7 @@ const NotificationSuccess = () => {
     return (
         <>
             <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                <SnackbarContent sx={popup} message={messageCreatedUsed}/>
+                <SnackbarContent sx={popup} message={message}/>
             </Snackbar>
         </>
     )

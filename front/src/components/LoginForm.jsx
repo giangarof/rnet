@@ -15,7 +15,7 @@ const LoginForm = () => {
     const [errorMsg, setErrorMsg] = useState('')
 
     const location = useLocation();
-    // const messageSuccess = location.state.message
+    const messageSuccess = location.state?.message
 
     const login = async() => { 
         setErrorMsg('')
@@ -23,8 +23,8 @@ const LoginForm = () => {
             const credentials = {email,password};
             const user = await axios.post('/api/user/login', credentials)
                 if(user.status === 200){
-                    navigate(`/profile/${user.data.profile._id}`)
-                    // console.log(user)
+                    navigate(`/profile/${user.data.profile._id}`, { state: { message: `${user.data?.message}, ${user.data?.profile?.name}` || 'Welcome back' } })
+                    console.log(user)
                 } 
             
         } catch (error) {
@@ -56,7 +56,7 @@ const LoginForm = () => {
                 </Typography>
 
                 <NotificationError message={errorMsg}/>
-                <NotificationSuccess message={errorMsg}/>
+                <NotificationSuccess message={messageSuccess}/>
                 
                 
             </Box>

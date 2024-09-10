@@ -1,19 +1,22 @@
 import * as React from 'react';
+import {useLocation, useNavigate} from 'react-router-dom'
+import {
+    AppBar,
+    Box,
+    Toolbar,
+    Menu,
+    IconButton,
+    Container,
+    Avatar,
+    Button,
+    Tooltip,
+    MenuItem,
+    Typography,
+    Link } from '@mui/material';
+import AdbIcon from '@mui/icons-material/Adb'
+import MenuIcon from '@mui/icons-material/menu'
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from '@mui/material';
+import axios from 'axios';
 
 const pages = ['Login', 'Signup'];
 const settings = ['Profile', 'Home', 'Settings', 'Logout'];
@@ -21,6 +24,7 @@ const settings = ['Profile', 'Home', 'Settings', 'Logout'];
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const navigate = useNavigate()
   
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -36,6 +40,14 @@ const Navbar = () => {
     const handleCloseUserMenu = () => {
       setAnchorElUser(null);
     };
+
+    const logout = async() => {
+        const user = await axios.post('/api/user/logout')
+        navigate('/login', { state: { message: `${user.data?.message}` || 'See you soon!'} })
+    }
+    const profile = () => {
+        
+    }
     return(
         <>
             <AppBar>
@@ -89,9 +101,12 @@ const Navbar = () => {
                         sx={{ display: { xs: 'block', md: 'none' } }}
                         >
                         {pages.map((page) => (
+                            
                             <MenuItem key={page} onClick={handleCloseNavMenu}>
                                 <Link href={`/${page.toLowerCase()}`}  sx={{ textAlign: 'center' }}>{page}</Link >
                             </MenuItem>
+                    
+                        
                         ))}
                         </Menu>
                     </Box>
@@ -149,7 +164,17 @@ const Navbar = () => {
                         onClose={handleCloseUserMenu}
                         >
                         {settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                            <MenuItem 
+                                key={setting} 
+                                onClick={() => {
+                                    if(setting === 'Logout'){
+                                        logout()
+                                    }else if(setting === 'Profile'){
+                                        profile()
+                                    }
+                                    handleCloseUserMenu
+                                    }
+                                }>
                             <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                             </MenuItem>
                         ))}

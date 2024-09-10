@@ -18,7 +18,7 @@ import {
 import asyncHandler from '../../middleware/asyncHandler.js';
 
 router.get('/getall', protect, administrator, asyncHandler(getAll))
-router.get('/:id', protect, asyncHandler(getUser))
+router.get('/profile/:id', protect, asyncHandler(getUser))
 
 router.post('/login', asyncHandler(login))
 router.post('/signup', asyncHandler(signup))
