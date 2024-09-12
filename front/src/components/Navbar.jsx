@@ -14,7 +14,7 @@ import {
     Typography,
     Link } from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb'
-import MenuIcon from '@mui/icons-material/menu'
+import MenuIcon from '@mui/icons-material/Menu'
 
 import axios from 'axios';
 
@@ -45,9 +45,11 @@ const Navbar = () => {
         const user = await axios.post('/api/user/logout')
         navigate('/login', { state: { message: `${user.data?.message}` || 'See you soon!'} })
     }
-    const profile = () => {
+    
+    const profile = async() => {
         
     }
+    
     return(
         <>
             <AppBar>
@@ -143,8 +145,13 @@ const Navbar = () => {
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                        <IconButton 
+                            onClick={handleOpenUserMenu} 
+                            // onClick={profile}
+                            sx={{ p: 0 }}
+                            >
+                            <Avatar src="/static/images/avatar/2.jpg" />
+
                         </IconButton>
                         </Tooltip>
                         <Menu

@@ -6,7 +6,6 @@ const login = async (req,res) => {
         const {email, password} = req.body;
         const user = await User.findOne({email})
         // console.log(user)
-
         if(user && (await user.matchPassword(password))){
             generateToken(res, user._id)
             res.status(200).send({message:'Welcome back!', profile: user})

@@ -11,6 +11,8 @@ import Home from './screens/Home.jsx'
 import Signup from './screens/Signup.jsx'
 import Login from './screens/Login.jsx'
 import Profile from './screens/Profile.jsx'
+import Update from './screens/Update.jsx'
+import Create from './screens/Create.jsx'
 
 const router =  createBrowserRouter(
   createRoutesFromElements(
@@ -21,7 +23,8 @@ const router =  createBrowserRouter(
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/profile/:userId" element={<Profile/>}/>
-
+        <Route path="/profile/:userId/update" element={<Update/>}/>
+        <Route path="/create" element={<Create/>}/>
         {/* Posts */}
 
       </Route>
