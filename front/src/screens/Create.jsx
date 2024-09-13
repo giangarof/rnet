@@ -63,18 +63,25 @@ const Create = () => {
                 onChange={(e) => setDescription(e.target.value) }/>
             <Button
                 component="label"
-                // role={undefined}
                 variant="contained"
-                // tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
+                // startIcon={<CloudUploadIcon />}
                 >
-                    Upload files
-                    <VisuallyHiddenInput
-                        type="file"
-                        onChange={FileUpload}
-                        // multiple
-                    />
+                    {imagePost.name ? (
+                        imagePost.name
+                    
+                
+                    ) : (
+                        <>                            
+                            Upload files
+                            <VisuallyHiddenInput
+                                type="file"
+                                onChange={FileUpload}
+                                // multiple
+                            />
+                        </>
+                    )}
                 </Button>
+                <input type='File' onChange={FileUpload}/>
             <Button variant="contained" color="success" onClick={post}>Create</Button>
             </Stack>
         </Container>

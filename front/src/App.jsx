@@ -12,8 +12,8 @@ function App() {
   return (
     <>
       <React.Fragment>
-        <Navbar/>
-        <Outlet/>
+          <Navbar/>
+          <Outlet/>
       </React.Fragment>
     </>
   )

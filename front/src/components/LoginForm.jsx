@@ -19,15 +19,17 @@ const LoginForm = () => {
 
     const login = async() => { 
         setErrorMsg('')
+      
         try {
             const credentials = {email,password};
             const user = await axios.post('/api/user/login', credentials)
                 if(user.status === 200){
-                    navigate(
-                        `/profile/${user.data.profile._id}`, 
+                    localStorage.setItem("userId", user.data.profile._id)
+                    localStorage.setItem("name", user.data.profile.name)
+                    navigate(`/profile/${user.data.profile._id}`, 
                         // { state: { message: `${user.data?.message}, ${user.data?.profile?.name}` || 'Welcome back' } }
                     )
-                    console.log(user)
+                    location.reload()
                 } 
             
         } catch (error) {
@@ -40,6 +42,10 @@ const LoginForm = () => {
         flexDirection:'column',
         gap:'2rem',
     }
+
+    useEffect(() => {
+        login()
+    },[])
 
     return (
         <>

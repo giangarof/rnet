@@ -48,6 +48,10 @@ const logout = async (req,res) => {
         httpOnly:true,
         expires: new Date(0)
     })
+    res.cookie('userId', '', {
+        httpOnly:true,
+        expires: new Date(0)
+    })
     res.status(200).json({message: "Logged out."})
 }
 

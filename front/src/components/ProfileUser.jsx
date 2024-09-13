@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Paper, Avatar, Container, Tooltip, Link, CardMedia } from "@mui/material"
+import { Box, Button, Typography, Paper, Avatar, Container, Tooltip, Link, CardMedia, Card } from "@mui/material"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -10,19 +10,20 @@ const ProfileUser = () =>{
     // console.log(location.pathname)
     const navigate = useNavigate()
 
-    const goToUpdateProfile = () => {navigate(`${location.pathname}/update`)}
+    const goToUpdateProfile = () => {navigate(`${location.pathname}update`)}
     const createPost = () => navigate(`/create`)
 
     useEffect(() => {
         const profile = async() => {
-            const user = await axios.get(`/api/user/${location.pathname}`, {withCredentials:true})
+            const user = await axios.get(`/api/user/${location.pathname}`)
             setUser(user.data.user)
             
             const arr = user.data.user.posts
             const arr1 = arr.map(i => i.imagePost)
             const arr2 = (arr1.map(i => i[0].url))
             const arr3 = (arr2.map(i => (i)))
-            setImages(arr3)
+            setImages(arr1)
+            // console.log(arr1)
 
         }
         profile()
@@ -75,8 +76,22 @@ const ProfileUser = () =>{
                     </Link>
                 ) : ( 
                     <>
+                        {img.length > 0 && img.map((img, i) => (
+                            <Card 
+                               >
+                                {Array.isArray(img.imagePost) && img.imagePost.length > 0 && (
+                                    <CardMedia                                
+                                        component='img'
+                                        image={img.imagePost[0].url}
+                                    />
+                                )}
+
+                                
+                            </Card>
+                        ))}
                     </>
-                )}
+                    
+                )} 
             </Container>
         </>
     )

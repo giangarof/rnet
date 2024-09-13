@@ -40,7 +40,6 @@ export const protect = asyncHandler(async(req,res,next) => {
         throw new Error('No authorization allowed')
     }
 })
-
 // export const postOwner = async(req,res) => {
 //     const {id} = req.params
 //     const post = await Post.findById(id)
