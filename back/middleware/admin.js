@@ -5,6 +5,21 @@ import User from "../MCR/model/user.js"
 import Post from "../MCR/model/post.js"
 import Review from "../MCR/model/review.js"
 
+export const checkAuth = async(req, res, next) => {
+    let token = req.cookies.jwt;
+    if(token){
+        try {
+            const decoded = jwt.verify(token, process.env.SECRET)
+            req.user = await User.findById(decoded.userId).select('name profileImage' )
+            res.status(200)
+            next()
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export const administrator = (req,res,next) => {
     if(req.user && req.user.isAdmin){
         next()
@@ -24,7 +39,7 @@ export const protect = asyncHandler(async(req,res,next) => {
         try {
             const decoded = jwt.verify(token, process.env.SECRET)
             req.user = await User.findById(decoded.userId).select('-password')
-            // req.user = decoded;
+            req.user = decoded;
             // console.log(decoded)
             // console.log(req.user)
             res.status(200)
@@ -69,11 +84,12 @@ export const Admin_Or_Owner_User = asyncHandler(async(req,res,next) => {
         const userOwnerId = user._id
     
         // the logged user
-        const loggedUser_id = req.user._id;
+        const loggedUser_id = req.user.userId;
     
         // If the logged user is admin
         const isAdmin = req.user.isAdmin
-        // console.log(userOwnerId, loggedUser_id, isAdmin)
+        console.log(userOwnerId, loggedUser_id, isAdmin)
+        
         if(userOwnerId.equals(loggedUser_id) || isAdmin){
             next()
         } else{

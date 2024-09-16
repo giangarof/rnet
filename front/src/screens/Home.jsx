@@ -5,6 +5,8 @@ function Home(){
         <>
             <h1>Home welcome</h1>
             <h2>About this website info</h2>
+            
+            
         </>
     )
 }

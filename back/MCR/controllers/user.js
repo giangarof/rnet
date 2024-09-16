@@ -1,6 +1,17 @@
 import User from "../model/user.js";
 import { generateToken } from "../../config/token.js";
 
+const isUser = async(req,res) => {
+    // let token = req.cookies.jwt
+    // if(token){
+    //     res.status(200).json({user:`User is login`})
+
+    // } else{
+    //     res.status(400).json({message:`No user`})
+    // }
+    res.status(200).json({user: req.user})
+}
+
 const login = async (req,res) => {
     try {
         const {email, password} = req.body;
@@ -106,7 +117,6 @@ const update = async (req, res) => {
          if (password != confirmPassword){
              res.status(404).send(`Passwords dont match`)
      
-     
          // verify email
          } else if (verifyIfEmailExits && verifyIfEmailExits._id.toString() !== id){
              res.status(400).send(`'Email already in use. Please, use another email.'`)
@@ -198,6 +208,7 @@ const follow = async(req,res) => {
 }
 
 export {
+    isUser,
     login, 
     signup,
     logout,

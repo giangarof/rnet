@@ -1,28 +1,37 @@
-import { Box, Button, Typography, Paper, Avatar, Container, Tooltip, Link, CardMedia, Card } from "@mui/material"
+import { Box, Button, Typography, Paper, Avatar, Container, Tooltip, Link, CardMedia, Card, AppBar, Toolbar } from "@mui/material"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 const ProfileUser = () =>{
-    
     const [user, setUser] = useState('')
-    const [img, setImages] = useState('')
-    const location = useLocation()
-    // console.log(location.pathname)
+    const [post, setPost] = useState([])
+    const userId = localStorage.getItem('userId')
+    console.log(location)
     const navigate = useNavigate()
 
-    const goToUpdateProfile = () => {navigate(`${location.pathname}update`)}
+    const goToUpdateProfile = () => {navigate(`/profile/${userId}/update`)}
     const createPost = () => navigate(`/create`)
+    console.log(userId)
 
     useEffect(() => {
         const profile = async() => {
-            const user = await axios.get(`/api/user/${location.pathname}`)
-            setUser(user.data.user)
+            const res = await axios.get(`/api/user/profile/${userId}`)
+            const userData = res.data.user;
+            setUser(userData)
+
+            const postsData = userData.posts?.map(post => ({
+                id: post._id, // Assuming the id is stored in _id
+                imagePost: post.imagePost[0]?.url || '' // Fallback if no image exists
+            })) || [];
+
+            setPost(postsData)
+            console.log(userData)
             
-            const arr = user.data.user.posts
-            const arr1 = arr.map(i => i.imagePost)
-            const arr2 = (arr1.map(i => i[0].url))
-            const arr3 = (arr2.map(i => (i)))
-            setImages(arr1)
+            // const arr = user.data.user.posts
+            // const arr1 = arr.map(i => i.imagePost)
+            // const arr2 = (arr1.map(i => i[0].url))
+            // const arr3 = (arr2.map(i => (i)))
+            // setImages(arr1)
             // console.log(arr1)
 
         }
@@ -31,12 +40,19 @@ const ProfileUser = () =>{
     }, [])
     return (
         <>  
-            {user.headerImage?.src ? (
+            {user.headerImage ? (
                 <Container>
-                    <img 
-                        src={user.headerImage?.src} 
-                        alt="profile image" 
-                        style={{width:"100%", height:"300px", objectFit:"contain", cursor:'pointer'}} />
+
+                            <Box 
+                                component='img'
+                                src={user.headerImage[0].url} 
+                                sx={{
+                                    width: '100%',  // 90% of viewport width
+                                    height: '50vh',  // 100% of the header's height (which is 40vh)
+                                    objectFit: 'contain',  // Cover the space without distortion
+                                  }}
+                            />
+            
                 </Container>
             ) : (
                 <Link onClick={goToUpdateProfile}>
@@ -51,12 +67,16 @@ const ProfileUser = () =>{
                 </Link>
             )}
             
-            {user.profileImage?.src ? (
-                <Avatar src={user.profileImage?.src} alt="profile image"/>
+            {user.profileImage ? (
+                <Box 
+                    component='img' 
+                    src={user.profileImage[0].url} 
+                    alt="profile image" 
+                    sx={{width:'150px', height:'150px', borderRadius:'50%', objectFit:'cover'}}/>
             ) : (
                     <Link onClick={goToUpdateProfile}>
                         <Tooltip title="Image Profile can be updated.">
-                            <Avatar src='/icon.jpg' sx={{width:100, height:100}}/>
+                            <Avatar src='/icon.jpg' sx={{width:"300px", height:"300px"}}/>
                         </Tooltip>
                     </Link>
             )}
@@ -69,24 +89,32 @@ const ProfileUser = () =>{
             </Box>
             <Button variant="contained" onClick={goToUpdateProfile}>Update</Button>
 
-            <Container>
+            <Container sx={{
+                    display: 'grid',
+                    alignContent:'center',
+                    width:'100%',
+                    gridTemplateColumns: {
+                        sm: 'repeat(1, 1fr)',  
+                        md: 'repeat(3, 1fr)',  
+                    },
+                    gap: 1,
+                    marginBottom:5,
+                    marginTop:5
+            }}>
                 {user.posts?.length === 0 ? (
                     <Link onClick={createPost} sx={{cursor:'pointer'}}>
                         <Typography>No post's.</Typography>
                     </Link>
                 ) : ( 
                     <>
-                        {img.length > 0 && img.map((img, i) => (
+                        {post.length > 0 && post.map((post, i) => (
                             <Card 
-                               >
-                                {Array.isArray(img.imagePost) && img.imagePost.length > 0 && (
-                                    <CardMedia                                
+                                key={i}
+                               > 
+                                    <CardMedia               
                                         component='img'
-                                        image={img.imagePost[0].url}
+                                        image={post.imagePost}
                                     />
-                                )}
-
-                                
                             </Card>
                         ))}
                     </>

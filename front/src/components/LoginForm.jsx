@@ -27,10 +27,11 @@ const LoginForm = () => {
                     localStorage.setItem("userId", user.data.profile._id)
                     localStorage.setItem("name", user.data.profile.name)
                     navigate(`/profile/${user.data.profile._id}`, 
-                        // { state: { message: `${user.data?.message}, ${user.data?.profile?.name}` || 'Welcome back' } }
+                        { state: { message: `${user.data?.message}, ${user.data?.profile?.name}` || 'Welcome back' } }
                     )
-                    location.reload()
-                } 
+                    navigate(0)
+                
+                }
             
         } catch (error) {
             setErrorMsg(error.response.data)

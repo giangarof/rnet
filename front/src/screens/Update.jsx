@@ -1,5 +1,6 @@
 import { Box, Container } from "@mui/material";
 import { useEffect, useState } from "react";
+import UpdateForm from "../components/UpdateForm";
 
 const Update = () => {
     const container = {
@@ -8,7 +9,7 @@ const Update = () => {
     return (
         <>
             <Container sx={container}>
-                Update form
+                <UpdateForm/>
             </Container>
         </>
     )

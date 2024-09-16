@@ -33,11 +33,11 @@ app.all('*', (req,res,next) => {
 });
 
 // Here I'm using app.use() to destructure the -err- parameter
-app.use((err, req,res, next) => {
-    const {status=500, msg = 'something went wrong'} = err;
-    res.status(status).send(msg)
-    next()
-})
+// app.use((err, req,res, next) => {
+//     const {status=500, msg = 'something went wrong'} = err;
+//     res.status(status).send(msg)
+//     next()
+// })
 
 // Running the app
 const port = 8000;

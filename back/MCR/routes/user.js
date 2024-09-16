@@ -2,9 +2,10 @@ import express from 'express';
 const router = express.Router();
 import { multerFields } from '../../config/multer.js';
 
-import { administrator, protect, Admin_Or_Owner_User } from '../../middleware/admin.js';
+import {checkAuth, administrator, protect, Admin_Or_Owner_User } from '../../middleware/admin.js';
 
 import {
+    isUser,
     login,
     signup,
     logout,
@@ -16,6 +17,8 @@ import {
 } from '../controllers/user.js'
 
 import asyncHandler from '../../middleware/asyncHandler.js';
+
+router.get('/auth', checkAuth, asyncHandler(isUser))
 
 router.get('/getall', protect, administrator, asyncHandler(getAll))
 router.get('/profile/:id', protect, asyncHandler(getUser))
