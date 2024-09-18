@@ -40,6 +40,9 @@ function Navbar({isUser, imgProfile}) {
   const profileNavigation = () => {
     navigate(`/profile/${userId}`)
   }
+  const home = () => {
+    navigate('/')
+  }
   
   const login = () => {
     navigate(`/login`)
@@ -114,6 +117,7 @@ function Navbar({isUser, imgProfile}) {
                   {isUser ? (
                     <>
                       <Typography onClick={profileNavigation}>{isUser}</Typography>
+                      <Typography onClick={home}>Home</Typography>
                     </>
                 ): (
                     <>
@@ -146,10 +150,11 @@ function Navbar({isUser, imgProfile}) {
           </Typography>
 
             {/* Medium device */}
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, display:'flex', gap:2 }}>
             {isUser ? (
                 <>
-                  <Typography sx={{display:{md:'block', xs:'none'}}}>{isUser}</Typography>
+                  <Typography sx={{display:{md:'block', xs:'none', cursor:'pointer'}}} onClick={profileNavigation}>{isUser}</Typography>
+                  <Typography sx={{display:{md:'block', xs:'none', cursor:'pointer'}}} onClick={home}>Home</Typography>
                 </>
             ): (
                 <>

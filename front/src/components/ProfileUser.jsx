@@ -6,35 +6,34 @@ const ProfileUser = () =>{
     const [user, setUser] = useState('')
     const [post, setPost] = useState([])
     const userId = localStorage.getItem('userId')
-    console.log(location)
+    // console.log(location)
     const navigate = useNavigate()
 
     const goToUpdateProfile = () => {navigate(`/profile/${userId}/update`)}
     const createPost = () => navigate(`/create`)
-    console.log(userId)
+    // console.log(userId)
 
+    const goTopost = (e) => {
+        e.preventDefault()
+        // navigate(`/post/${i}`)
+        console.log(i)
+    }
+
+    const profile = async() => {
+        const res = await axios.get(`/api/user/profile/${userId}`)
+        const userData = res.data.user;
+        setUser(userData)
+
+        const postsData = userData.posts?.map(post => ({
+            id: post._id, // Assuming the id is stored in _id
+            imagePost: post.imagePost[0]?.url || '' // Fallback if no image exists
+        })) || [];
+
+        setPost(postsData)
+        console.log(postsData)
+
+    }
     useEffect(() => {
-        const profile = async() => {
-            const res = await axios.get(`/api/user/profile/${userId}`)
-            const userData = res.data.user;
-            setUser(userData)
-
-            const postsData = userData.posts?.map(post => ({
-                id: post._id, // Assuming the id is stored in _id
-                imagePost: post.imagePost[0]?.url || '' // Fallback if no image exists
-            })) || [];
-
-            setPost(postsData)
-            console.log(userData)
-            
-            // const arr = user.data.user.posts
-            // const arr1 = arr.map(i => i.imagePost)
-            // const arr2 = (arr1.map(i => i[0].url))
-            // const arr3 = (arr2.map(i => (i)))
-            // setImages(arr1)
-            // console.log(arr1)
-
-        }
         profile()
 
     }, [])
@@ -107,16 +106,24 @@ const ProfileUser = () =>{
                     </Link>
                 ) : ( 
                     <>
-                        {post.length > 0 && post.map((post, i) => (
-                            <Card 
-                                key={i}
-                               > 
-                                    <CardMedia               
-                                        component='img'
-                                        image={post.imagePost}
-                                    />
-                            </Card>
-                        ))}
+                       
+
+                            {post.length > 0 && post.map((post, i) => (
+                                <Link href={`/post/${post.id}`}>
+
+                                    <Card 
+                                        sx={{cursor:'pointer'}}
+                                        key={i}
+                                          
+                                    > 
+                                            <CardMedia
+                                                component='img'
+                                                image={post.imagePost}
+                                            />
+                                    </Card>
+                                </Link>
+                            ))}
+                        
                     </>
                     
                 )} 
