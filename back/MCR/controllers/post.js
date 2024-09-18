@@ -96,16 +96,16 @@ const deletePost = async (req,res) => {
     // id from the POST MODEL DATABASE | Look up the post
     const post = await Post.findById(id);
     // const postOwner = await User.findById(userPostId)
-    const user = req.user;
-
+    const user = req.user.userId;
+    // console.log(user)
     // If the post dont exist
     if(!post){
         res.status(404).json({message:`Post dont exist.`})
     }
     
-    const postOwner = post.author[0]._id.equals(user._id)
+    const postOwner = post.author[0]._id.equals(user)
     const userIsAdmin = user.isAdmin
-
+    // console.log(postOwner)
     const deletion = async () => {
         // find the user
         const user = await User.findById(post.author[0]._id)

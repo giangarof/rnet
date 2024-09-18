@@ -14,6 +14,7 @@ import Profile from './screens/Profile.jsx'
 import Update from './screens/Update.jsx'
 import Create from './screens/Create.jsx'
 import Post from './screens/Post.jsx'
+import UpdatePost from './screens/UpdatePost.jsx'
 
 const router =  createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router =  createBrowserRouter(
         <Route path="/create" element={<Create/>}/>
         {/* Posts */}
         <Route path="/post/:id" element={<Post/>}/>
+        <Route path="/post/update/:id" element={<UpdatePost/>}/>
       </Route>
   )
 )

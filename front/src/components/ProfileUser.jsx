@@ -117,7 +117,7 @@ const ProfileUser = () =>{
                                           
                                     > 
                                             <CardMedia
-                                                component='img'
+                                                component='img' 
                                                 image={post.imagePost}
                                             />
                                     </Card>
