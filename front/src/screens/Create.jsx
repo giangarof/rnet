@@ -2,18 +2,19 @@ import { Button, Container, Stack, styled, TextField } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Create = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [imagePost, setImagePost] = useState('')
     const navigate = useNavigate()
+    const {id} = useParams()
 
     const FileUpload = (e) => {
         const file = e.target.files[0]
         setImagePost(file)
-        console.log(file)
+        // console.log(file)
     }
 
     const post = async(e) => { 
@@ -23,7 +24,7 @@ const Create = () => {
         formData.append("description", description);
         formData.append("imagePost", imagePost);
         const data = await axios.post('/api/post/create', formData)
-        navigate(`/`)
+        navigate(`/profile/${id}`)
         console.log(data)
     }
     
@@ -61,7 +62,7 @@ const Create = () => {
             <TextField  id="outlined-basic" label="Description" variant="outlined" 
                 value={description}
                 onChange={(e) => setDescription(e.target.value) }/>
-            <Button
+            {/* <Button
                 component="label"
                 variant="contained"
                 // startIcon={<CloudUploadIcon />}
@@ -80,7 +81,7 @@ const Create = () => {
                             />
                         </>
                     )}
-                </Button>
+                </Button> */}
                 <input type='File' onChange={FileUpload}/>
             <Button variant="contained" color="success" onClick={post}>Create</Button>
             </Stack>

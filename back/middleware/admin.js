@@ -68,7 +68,8 @@ export const Admin_Or_Owner_Post = asyncHandler(async(req,res,next) => {
     const userId = req.user.userId
     const isAdmin = req.user.isAdmin
     // console.log(postOwner.equals(userId))
-    // console.log(userId)
+    // console.log(post)
+    // console.log(postOwner.equals(userId))
     
     if(postOwner.equals(userId) || isAdmin){
         next()

@@ -7,8 +7,8 @@ const createPost = async (req,res) => {
     // Get the body post
     const post = new Post(req.body);
     // find the user
-    const user = await User.findById(req.user._id);
-
+    const user = await User.findById(req.user.userId);
+    console.log(user.name)
     try {
         // image upload handler
         post.imagePost = req.files.imagePost.map(f => ({
@@ -17,9 +17,10 @@ const createPost = async (req,res) => {
             originalname:f.originalname
         }));
         // post.author object, attach id and the name
-        post.author = {_id: req.user._id, name: req.user.name}
+        post.author = {_id: user, name: user.name}
         // user.posts object, push the post
         user.posts.push(post)
+        
         // save it
         await post.save()
         await user.save()

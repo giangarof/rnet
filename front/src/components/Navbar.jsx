@@ -51,6 +51,10 @@ function Navbar({isUser, imgProfile}) {
   const signup = () => {
     navigate(`/signup`)
   }
+
+  const createPost = () => {
+    navigate('/create')
+  }
   
   const logout = async() => {
     await axios.post(`/api/user/logout`)
@@ -190,6 +194,7 @@ function Navbar({isUser, imgProfile}) {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseNavMenu} sx={{display:'flex', flexDirection:'column'}}>
+                <Button onClick={() => {handleCloseNavMenu(), createPost()}} sx={{ display: 'block' }}>Add Content</Button>
                 <Button onClick={() => {handleCloseNavMenu(), logout()}} sx={{ display: 'block' }}>Logout</Button>
               </MenuItem>
             </Menu>

@@ -16,7 +16,7 @@ const Post = () => {
         const res = await axios.get(`/api/post/${id}`)
         setPost(res.data.post)
         setImage(res.data.post.imagePost)
-        // console.log(res.data.post)
+        console.log(res.data.post)
     }
 
     const deletePost = async(id) => {
@@ -54,7 +54,7 @@ const Post = () => {
                     }
                     {image ? 
                     <Card>
-                        <CardMedia component='img' image={image[0].url} /> 
+                        <CardMedia component='img' image={image[0].url}/> 
                     </Card> : `Image can't be displayed...`}
                     
                     <Container sx={{marginTop:'2rem'}}>

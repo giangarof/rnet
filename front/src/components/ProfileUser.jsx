@@ -39,20 +39,24 @@ const ProfileUser = () =>{
     }, [])
     return (
         <>  
-            {user.headerImage ? (
-                <Container>
 
-                            <Box 
-                                component='img'
-                                src={user.headerImage[0].url} 
-                                sx={{
-                                    width: '100%',  // 90% of viewport width
-                                    height: '50vh',  // 100% of the header's height (which is 40vh)
-                                    objectFit: 'contain',  // Cover the space without distortion
-                                  }}
-                            />
+
+        {/* Header */}
+        <Box sx={{backgroundColor:'rgba(0,0,0,0.3)', height:'50vh', width:'100%'}}>
+
+            {user.headerImage ? (
             
-                </Container>
+                <Box disableGutters
+                    component='img'
+                    src={user.headerImage[0].url} 
+                    
+                    sx={{
+                        height:'50vh', width:'100%',
+                        objectFit:'contain'
+                    }}
+                />
+            
+               
             ) : (
                 <Link onClick={goToUpdateProfile}>
                     <Tooltip title="Header image can be updated.">
@@ -65,7 +69,9 @@ const ProfileUser = () =>{
                     </Tooltip>
                 </Link>
             )}
+        </Box>
             
+            {/* Profile Image */}
             {user.profileImage ? (
                 <Box 
                     component='img' 
@@ -79,6 +85,7 @@ const ProfileUser = () =>{
                         </Tooltip>
                     </Link>
             )}
+
 
             <Typography>{user.name}</Typography>
             <Typography>Alias: {user.username}</Typography>
@@ -109,14 +116,15 @@ const ProfileUser = () =>{
                        
 
                             {post.length > 0 && post.map((post, i) => (
-                                <Link href={`/post/${post.id}`}>
+                                <Link href={`/post/${post.id}`} key={i}>
 
                                     <Card 
-                                        sx={{cursor:'pointer'}}
-                                        key={i}
+                                        sx={{cursor:'pointer', height:'100%'}}
+                                        // key={i}
                                           
                                     > 
                                             <CardMedia
+                                            sx={{cursor:'pointer', height:'100%'}}
                                                 component='img' 
                                                 image={post.imagePost}
                                             />
