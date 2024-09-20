@@ -11,14 +11,12 @@
     reviews
         add reviews components
         comment reviews
-        like reviews?
+        like reviews
 
     post
         like/unlike post
 
-    user
-        follow/unfollow user
-
     Display messages if necessary
 
+    improve design
     responsive design

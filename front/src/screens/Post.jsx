@@ -7,8 +7,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 const Post = () => {
     const [post,setPost] = useState('')
+    const [idAuthor, setIdAuthor] = useState('')
     const [image,setImage] = useState('')
     const {id} = useParams()
+    // console.log(id)
     const navigate = useNavigate()
     const userId = localStorage.getItem('userId')
 
@@ -16,7 +18,7 @@ const Post = () => {
         const res = await axios.get(`/api/post/${id}`)
         setPost(res.data.post)
         setImage(res.data.post.imagePost)
-        console.log(res.data.post)
+        setIdAuthor(res.data.post.author[0]._id)
     }
 
     const deletePost = async(id) => {
@@ -45,7 +47,7 @@ const Post = () => {
                 <Box  sx={{backgroundColor:'rgba(0, 0, 0, 0.03)', padding:'10px', borderRadius:'10px'}}>
                     {post ?
                         <Typography sx={{padding:'10px 0px 10px 0px'}}>
-                            <Link href={`/profile/${post.author[0]._id}`} sx={{textDecoration:'none', cursor:'pointer', color:'#3279a8'}}>
+                            <Link href={`/profile/${idAuthor}`} sx={{textDecoration:'none', cursor:'pointer', color:'#3279a8'}}>
                                 {post.author[0].name}
                             </Link>
                          </Typography>

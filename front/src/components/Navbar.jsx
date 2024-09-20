@@ -39,8 +39,13 @@ function Navbar({isUser, imgProfile}) {
 
   const profileNavigation = () => {
     navigate(`/profile/${userId}`)
+    location.reload()
   }
   const home = () => {
+    navigate('/home')
+  }
+
+  const index = () => {
     navigate('/')
   }
   
@@ -195,6 +200,7 @@ function Navbar({isUser, imgProfile}) {
             >
               <MenuItem onClick={handleCloseNavMenu} sx={{display:'flex', flexDirection:'column'}}>
                 <Button onClick={() => {handleCloseNavMenu(), createPost()}} sx={{ display: 'block' }}>Add Content</Button>
+                <Button onClick={() => {handleCloseNavMenu(), index()}} sx={{ display: 'block' }}>Index</Button>
                 <Button onClick={() => {handleCloseNavMenu(), logout()}} sx={{ display: 'block' }}>Logout</Button>
               </MenuItem>
             </Menu>

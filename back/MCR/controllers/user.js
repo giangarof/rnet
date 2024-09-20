@@ -178,23 +178,25 @@ const follow = async(req,res) => {
     const user = await User.findById(id)
 
     // your ID
-    const you = await User.findById(req.user._id)
+    const you = await User.findById(req.user.userId)
 
     // Check if you are a follower
     const follower = user.followers.some((x) => {return x.equals(you._id) })
-
+    // console.log(user)
+    // console.log(you)
+    // console.log(follower)
     try {
         // If you are a follower
         if(follower){
             // pull your id from the followers array of the user
-            user.followers.pull(req.user._id)
+            user.followers.pull(req.user.userId)
             // pull your id from your following array
-            you.following.pull(user._id)
+            you.following.pull(user.userId)
         } else {
             // push your id to the followers array of the user
-            user.followers.push(req.user._id)
+            user.followers.push(req.user.userId)
             // push your id to your following array
-            you.following.push(user._id)
+            you.following.push(user.userId)
         }
         // Save changes
         await user.save()

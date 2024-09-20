@@ -8,6 +8,7 @@ import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} fr
 
 // screens
 import Home from './screens/Home.jsx'
+import All from './screens/All.jsx'
 import Signup from './screens/Signup.jsx'
 import Login from './screens/Login.jsx'
 import Profile from './screens/Profile.jsx'
@@ -20,6 +21,7 @@ const router =  createBrowserRouter(
   createRoutesFromElements(
       <Route path='/' element={<App/>}>
         <Route index={true} path="/" element={<Home/>}/>
+        <Route path="/home" element={<All/>}/>
 
         {/* User */}
         <Route path="/signup" element={<Signup/>}/>
