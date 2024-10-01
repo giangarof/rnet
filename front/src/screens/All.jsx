@@ -12,18 +12,22 @@ const All = () => {
         const data =  res.data.posts
         
         setPost(data)
-
-        // data.map(i => {
-        //     setPost(i)
-        //     console.log(i)
-        // })
+        
+        data.map(i => {
+            
+            console.log(i.likes.some(like => like._id === userId));
+        })
     }
 
     const liked = async(id) => {
-        const data =  await axios.post(`/api/post/like/${id}`)
-        // console.log(data)
+        try {
+            const data =  await axios.post(`/api/post/like/${id}`)
+            fetching()
+        } catch (error) {
+            
+            console.log(error)
+        }
     }
-
     useEffect(() => {
         fetching()
     }, [])
@@ -68,8 +72,7 @@ const All = () => {
                             </Link>
                             <Box sx={{display:'flex', flexDirection:'column', gap:'10px'}}>
                                 <Box>
-                                    {p.likes.some((l) => l === userId) ? 'yes' : 'no'}
-                                    {p.likes.includes(userId) ? 
+                                    {p.likes.some((l) => l._id === userId) ? 
                                     <>
                                         <FavoriteIcon 
                                             sx={{

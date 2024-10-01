@@ -1,3 +1,4 @@
+
 import { Box, Button, Typography, Paper, Avatar, Container, Tooltip, Link, CardMedia, Card, AppBar, Toolbar } from "@mui/material"
 import axios from "axios"
 import { useEffect, useState } from "react"
@@ -37,7 +38,7 @@ const ProfileUser = () =>{
         // console.log(res)
     }
     const isFollowing = user.followers?.some(follower => follower === identification);
-    console.log(isFollowing)
+    // console.log(isFollowing)
    
     useEffect(() => {
         profile()
@@ -45,28 +46,39 @@ const ProfileUser = () =>{
     return (
         <>  
 
-            <Box 
+            <Box className="custom"
                 sx={{
-                display:{
-                    xs:'flex'
-                },
-                flexDirection:{
-                    xs:'column'
-                },
-                alignItems:{
-                    xs:'center'
-                }
-                
+                    
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                    display:{
+                        xs:'flex'
+                    },
+                    flexDirection:{
+                        xs:'column'
+                    },
+                    alignItems:{
+                        xs:'center'
+                    },
+                    width:{
+                        xs:'100%'
+                    },
+                    height:{
+                        xs:'100%'
+                    },
+
+                    
                 }}>
                 {/* Header */}
-                <Box>
+                <Box sx={{}}>
                     {user.headerImage ? (
                         <Box
                             component='img'
                             src={user.headerImage[0]?.url} 
-                            
                             sx={{
-                                height:'50vh', width:'100%',
+                                height:{
+                                    xs:'60vh'
+                                },
+                                width:'100%',
                                 objectFit:'contain'
                             }}
                         /> 
@@ -86,7 +98,14 @@ const ProfileUser = () =>{
                 </Box>
 
                 {/* Profile Image */}
-                <Container sx={{display:'flex', flexDirection:'row', justifyContent:'space-around', marginTop:'1rem'}}>
+                <Box sx={{
+                        width:'100%',
+                        display:'flex', 
+                        flexDirection:{xs:'column', md:'row'}, 
+                        justifyContent:{md:'space-around'},
+                        alignItems:'center',
+                        margin: '10px 0 10px 0'
+                    }}>
                     <Box>
                         {user.profileImage ? (
                             <Box 
@@ -140,7 +159,7 @@ const ProfileUser = () =>{
                             )}
                         </Container>
                     </Box>
-                </Container>
+                </Box>
             </Box>
 
             <Container sx={{

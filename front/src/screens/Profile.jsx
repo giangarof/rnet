@@ -27,6 +27,7 @@ function Profile(){
 
     const container = {
         marginTop:'8rem',
+        
     }
     
     return (

@@ -36,7 +36,11 @@ const Post = () => {
     const form = {
         // backgrounColor:'red',
         marginTop:'8rem',
-        width:'50%'
+        width:{
+            xs:'100%',
+            md:'50%'
+        }
+        
         
     } 
     
@@ -44,7 +48,11 @@ const Post = () => {
         <>
         {/* <Box sx={form}> */}
             <Container sx={form}>
-                <Box  sx={{backgroundColor:'rgba(0, 0, 0, 0.03)', padding:'10px', borderRadius:'10px'}}>
+                <Box  
+                    sx={{
+                        backgroundColor:'rgba(0, 0, 0, 0.03)', padding:'10px', borderRadius:'10px',
+                        // width:'100%'
+                    }}>
                     {post ?
                         <Typography sx={{padding:'10px 0px 10px 0px'}}>
                             <Link href={`/profile/${idAuthor}`} sx={{textDecoration:'none', cursor:'pointer', color:'#3279a8'}}>
@@ -61,10 +69,12 @@ const Post = () => {
                     
                     <Container sx={{marginTop:'2rem'}}>
                         {/* if user is owner */}
-                        <Box sx={{ cursor:'pointer', display:'flex', gap:'10px'}}>
+                        {userId === idAuthor ? <>
+                            <Box sx={{ cursor:'pointer', display:'flex', gap:'10px'}}>
                             <DeleteIcon onClick={() => {deletePost(post._id)}}/>
                             <EditIcon onClick={() => {gotoUpdate(post._id)}}/>
                         </Box>
+                        </> : ''}
 
                         <Box 
                             sx={{

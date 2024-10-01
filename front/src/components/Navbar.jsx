@@ -68,8 +68,6 @@ function Navbar({isUser, imgProfile}) {
     navigate(0)
   }
   
-  // console.log(isUser, imgProfile)
-  
   
   return (
     <AppBar >
@@ -81,7 +79,7 @@ function Navbar({isUser, imgProfile}) {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -125,7 +123,7 @@ function Navbar({isUser, imgProfile}) {
               <MenuItem onClick={handleCloseNavMenu} sx={{display:'flex', flexDirection:'column'}}>
                   {isUser ? (
                     <>
-                      <Typography onClick={profileNavigation}>{isUser}</Typography>
+                      <Typography onClick={profileNavigation}>Profile</Typography>
                       <Typography onClick={home}>Home</Typography>
                     </>
                 ): (
@@ -143,7 +141,7 @@ function Navbar({isUser, imgProfile}) {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -199,6 +197,7 @@ function Navbar({isUser, imgProfile}) {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseNavMenu} sx={{display:'flex', flexDirection:'column'}}>
+                <Button onClick={profileNavigation}>Profile</Button>
                 <Button onClick={() => {handleCloseNavMenu(), createPost()}} sx={{ display: 'block' }}>Add Content</Button>
                 <Button onClick={() => {handleCloseNavMenu(), index()}} sx={{ display: 'block' }}>Index</Button>
                 <Button onClick={() => {handleCloseNavMenu(), logout()}} sx={{ display: 'block' }}>Logout</Button>

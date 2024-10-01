@@ -1,0 +1,9 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.custom{
+    margin-left:'0'; margin-right:'0',
+}

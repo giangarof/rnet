@@ -4,19 +4,17 @@
     Styled with materialUI.
 
 # Status
-    Under development.
+    Stage - Under development.
 
-    To do
+    To do - {
 
-    reviews
-        add reviews components
-        comment reviews
-        like reviews
+        reviews
+            add reviews components
+            comment reviews
+            like reviews
 
-    post
-        like/unlike post
+        Display messages if necessary
+    }
 
-    Display messages if necessary
 
-    improve design
-    responsive design
+    After "To do": Done?
