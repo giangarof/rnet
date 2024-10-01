@@ -25,7 +25,7 @@ function Home(){
 
                     <Typography>What you can do;</Typography>
                     <Box sx={box1}>
-                        <Link href='/index'>
+                        <Link href='/home'>
                             <Typography>See all posts</Typography>
                         </Link>
                         <Link href={`/profile/${id}`}>

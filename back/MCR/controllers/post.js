@@ -140,13 +140,13 @@ const deletePost = async (req,res) => {
 // like post
 const like = async(req,res) => {
     // userId
-    const user = req.user._id;
+    const user = req.user.userId;
     // id post
     const { id } = req.params
     const post = await Post.findById(id)
 
-    const like = post.likes.some((x) => {return x.equals(user._id) })
-
+    const like = post.likes.some((x) => {return x.equals(user) })
+    console.log(like, user)
     try {
         if(like){
             post.likes.pull(user)
@@ -154,7 +154,7 @@ const like = async(req,res) => {
             post.likes.push(user)
         }
         await post.save()
-        res.status(200).json({message: like ? 'Unlike' : 'liked', post})
+        res.status(200).json({message: like ? 'Unlike' : 'liked', post, like})
         
     } catch (error) {
         throw new Error(error)

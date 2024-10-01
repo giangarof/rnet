@@ -10,6 +10,7 @@ const Create = () => {
     const [imagePost, setImagePost] = useState('')
     const navigate = useNavigate()
     const {id} = useParams()
+    const userId = localStorage.getItem('userId')
 
     const FileUpload = (e) => {
         const file = e.target.files[0]
@@ -24,8 +25,8 @@ const Create = () => {
         formData.append("description", description);
         formData.append("imagePost", imagePost);
         const data = await axios.post('/api/post/create', formData)
-        navigate(`/profile/${id}`)
-        console.log(data)
+        navigate(`/profile/${userId}`)
+        // console.log(data)
     }
     
     const container = {
