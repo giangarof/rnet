@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import {Box, TextField, Button, Typography, Link, Snackbar, SnackbarContent, Container} from '@mui/material';
+import {Box, TextField, Button, Typography, Link, Snackbar, SnackbarContent, Container, Card, CardMedia} from '@mui/material';
 
 const All = () => {
     const [post, setPost] = useState([])
@@ -9,6 +9,7 @@ const All = () => {
         const data =  res.data.posts
         setPost(data)
         console.log(data)
+
         // data.map(i => {
         //     setPost(i)
         //     console.log(i)
@@ -37,10 +38,16 @@ const All = () => {
     return(
         <>
             <Container sx={form}>
-
                 {post.map((p, i) => (
                         <Box sx={box} key={i}>
                             <Link href={`/profile/${p.author[0]._id}`} sx={link} ><Typography>{p.author[0].name}</Typography></Link>
+                            <Link href={`/post/${p._id}`}>
+                                <Card sx={{cursor:'pointer', height:'10%'}}>
+                                    <CardMedia 
+                                        component="img"
+                                        image={p.imagePost[0].url}/>
+                                </Card>
+                            </Link>
                             <Typography>{p.title}</Typography>
                             <Typography>{p.description}</Typography>
                         </Box>
