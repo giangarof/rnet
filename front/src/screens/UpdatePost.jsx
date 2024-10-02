@@ -7,7 +7,7 @@ const UpdatePost = () => {
     const [title, setTitle] = React.useState('')
     const [description, setDescription] = React.useState('')
     const [imagePost, setImagePost] = React.useState('')
-
+    const userId = localStorage.getItem('userId')
     const navigate = useNavigate()
     const {id} = useParams()
     console.log(id)
@@ -45,7 +45,7 @@ const UpdatePost = () => {
         
         const update = await axios.put(`/api/post/update/${id}`, formData)
         console.log(update)
-        navigate(`/profile/${id}`)
+        navigate(`/profile/${userId}`)
         
     }
 

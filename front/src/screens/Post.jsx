@@ -5,6 +5,10 @@ import {useNavigate, useParams } from "react-router-dom"
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
+import ReviewBox from "../components/ReviewsBox.jsx";
+
 const Post = () => {
     const [post,setPost] = useState('')
     const [idAuthor, setIdAuthor] = useState('')
@@ -19,11 +23,33 @@ const Post = () => {
         setPost(res.data.post)
         setImage(res.data.post.imagePost)
         setIdAuthor(res.data.post.author[0]._id)
+        console.log(res.data.post)
     }
 
     const deletePost = async(id) => {
         const res = await axios.delete(`/api/post/delete/${id}`)
         navigate(`/profile/${userId}`)
+    }
+
+    const deleteReview = async(id) => {
+        try {
+            const res = await axios.delete(`/api/review/delete/${id}`)
+            console.log(res.data.message)
+            fetching()
+            
+        } catch (error) {
+            console.log(error.response.statusText)
+        }
+    }
+
+    const liked = async(id) => {
+        try {
+            const data =  await axios.post(`/api/post/like/${id}`)
+            console.log(data)
+            fetching()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const gotoUpdate = async (id) => {
@@ -36,6 +62,9 @@ const Post = () => {
     const form = {
         // backgrounColor:'red',
         marginTop:'8rem',
+        marginBottom: '5rem',
+        display:'flex', flexDirection:'column',
+        gap:'1rem',
         width:{
             xs:'100%',
             md:'50%'
@@ -70,11 +99,53 @@ const Post = () => {
                     <Container sx={{marginTop:'2rem'}}>
                         {/* if user is owner */}
                         {userId === idAuthor ? <>
-                            <Box sx={{ cursor:'pointer', display:'flex', gap:'10px'}}>
-                            <DeleteIcon onClick={() => {deletePost(post._id)}}/>
-                            <EditIcon onClick={() => {gotoUpdate(post._id)}}/>
-                        </Box>
-                        </> : ''}
+                            <Box sx={{ cursor:'pointer', display:'flex', flexDirection:'row', justifyContent:'space-between', gap:'10px'}}>
+                                <Box sx={{display:'flex', gap:'1rem'}}>
+                                    <Typography>{post.likes.length} Likes</Typography>
+                                    {post.likes.some((l) => l._id === userId) ? 
+                                    <>
+                                        <FavoriteIcon 
+                                            sx={{
+                                            color:'red', cursor:'pointer'
+                                            }}
+                                            onClick={() => liked(post._id)}
+                                        />
+                                    </> : <>
+                                        <FavoriteIcon 
+                                            sx={{
+                                            '&:hover':{color:'red', cursor:'pointer'}
+                                            }}
+                                            onClick={() => liked(post._id)}
+                                        />
+                                    </>}
+                                </Box>
+                                <Box>
+
+                                    <EditIcon onClick={() => {gotoUpdate(post._id)}} sx={{'&:hover':{color:'blue', cursor:'pointer'}}}/>
+                                    <DeleteIcon onClick={() => {deletePost(post._id)}} sx={{'&:hover':{color:'red', cursor:'pointer'}}}/>
+                                </Box>
+                            </Box>
+                        </> : <>
+                                <Box sx={{display:'flex', gap:'1rem'}}>
+                                    <Typography>{post.likes?.length} Likes</Typography>
+                                    {post.likes?.some((l) => l._id === userId) ? 
+                                    <>
+                                        <FavoriteIcon 
+                                            sx={{
+                                            color:'red', cursor:'pointer'
+                                            }}
+                                            onClick={() => liked(post._id)}
+                                        />
+                                    </> : <>
+                                        <FavoriteIcon 
+                                            sx={{
+                                            '&:hover':{color:'red', cursor:'pointer'}
+                                            }}
+                                            onClick={() => liked(post._id)}
+                                        />
+                                    </>}
+                                </Box>
+                        </>}
 
                         <Box 
                             sx={{
@@ -87,6 +158,23 @@ const Post = () => {
                             <Typography>-{post.description}</Typography>
                         </Box>
                     </Container>
+                </Box>
+
+                <ReviewBox postId={post._id} func={fetching}/>
+
+                <Box 
+                    sx={{
+                        display:'flex', flexDirection:'column', gap:'1rem'
+                    }}>
+                    {post.reviews?.map((i, k) => (
+                        <Box key={k} sx={{backgroundColor:'rgba(0,0,0,0.06)', padding:'7px', borderRadius:'12px'}}>
+                            <Box sx={{display:'flex', justifyContent:'space-between'}}>
+                                <Typography>{i.author[0].name}</Typography>
+                                <DeleteIcon sx={{'&:hover':{color:'red', cursor:'pointer'}}} onClick={() => deleteReview(i._id)}/>
+                            </Box>
+                            <Typography>{i.content}</Typography>
+                        </Box>
+                    ))}
                 </Box>
             </Container>
                 

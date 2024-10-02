@@ -13,10 +13,9 @@ const All = () => {
         
         setPost(data)
         
-        data.map(i => {
-            
-            console.log(i.likes.some(like => like._id === userId));
-        })
+        // data.map(i => {
+        //     console.log(i.likes.some(like => like._id === userId));
+        // })
     }
 
     const liked = async(id) => {

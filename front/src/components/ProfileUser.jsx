@@ -3,6 +3,11 @@ import { Box, Button, Typography, Paper, Avatar, Container, Tooltip, Link, CardM
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
+
+import SettingsIcon from '@mui/icons-material/Settings';
+import PersonIcon from '@mui/icons-material/Person';
+import AddIcon from '@mui/icons-material/Add';
+
 const ProfileUser = () =>{
     const [user, setUser] = useState('')
     const [post, setPost] = useState([])
@@ -39,6 +44,14 @@ const ProfileUser = () =>{
     }
     const isFollowing = user.followers?.some(follower => follower === identification);
     // console.log(isFollowing)
+
+    const icon={
+        cursor:'pointer',
+        "&:hover":{
+            color:'blue'
+
+        }
+    }
    
     useEffect(() => {
         profile()
@@ -145,8 +158,9 @@ const ProfileUser = () =>{
 
                             {identification === userId ? (
                                 <Box sx={{display:'flex', gap:'1rem', margin:'10px 0px 10px 0px'}}>
-                                    <Button variant="contained" onClick={goToUpdateProfile}>Update</Button>
-                                    <Button variant="contained">Settings</Button>
+                                    <AddIcon onClick={createPost} sx={icon}/>
+                                    <PersonIcon  onClick={goToUpdateProfile} sx={icon} />
+                                    <SettingsIcon sx={icon} />
                                 </Box>
                                 
                             ) : (

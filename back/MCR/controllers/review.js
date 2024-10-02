@@ -13,9 +13,10 @@ const create = async(req,res) => {
     const review = new Review(content)
 
     // get the author
-        const author = req.user
-        const user = await User.findById(author._id)
-        review.author = {_id: author._id, name: author.name};
+        const author = req.user.userId
+        const user = await User.findById(author)
+        review.author = {_id: author, name: user.name};
+        console.log(user)
     // post.reviews = {_id: author._id, name: author.name};
     // review.author = user
 
@@ -25,6 +26,8 @@ const create = async(req,res) => {
     //     name: author.name,
     // })
     // post.reviews.push({_id:content._id, name: author.name})
+
+
     post.reviews.push(review)
     await post.save()
     await review.save()
@@ -55,15 +58,15 @@ const update = async(req,res) => {
 }
 
 const deleteReview = async(req,res) => {
+    const user = req.user.userId
     const {reviewId} = req.params;
     const review = await Review.findById(reviewId)
-
     try {
         if(!review){
             res.status(404).json({message:`Review doesnt exist.`})
         } else {
             await Review.findByIdAndDelete(reviewId)
-            res.status(404).json({message:`Review deleted successfully!`})
+            res.status(200).json({message:`Review deleted successfully!`})
         }
         
     } catch (error) {

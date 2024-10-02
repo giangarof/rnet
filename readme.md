@@ -9,11 +9,13 @@
     To do - {
 
         reviews
-            add reviews components
-            comment reviews
             like reviews
+            Add link to user review
 
         Display messages if necessary
+            Comment added   rev
+            Comment deleted rev
+            Profile updated
     }
 
 

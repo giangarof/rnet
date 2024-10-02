@@ -107,16 +107,18 @@ export const Admin_Or_Owner_Review = asyncHandler(async(req,res,next) => {
 
     const reviewOwner = review.author[0]._id
     // get the info of the logged user. ID and isAdmin
-    const userId = req.user._id
+    const userId = req.user.userId
     const isAdmin = req.user.isAdmin
 
-    // console.log(review, userId, isAdmin, reviewOwner)
+    console.log(review, userId, isAdmin, reviewOwner)
+    console.log(review)
 
     if(reviewOwner.equals(userId) || isAdmin){
         next()
     } else{
         throw new ExpressError(`You're not the owner of the post, nor Admin`, 401)
     }
+    
 })
 
 
