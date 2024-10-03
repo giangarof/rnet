@@ -178,15 +178,19 @@ const Post = () => {
                                 <Link href={`/profile/${i.author[0]._id}`} sx={name}>
                                     <Typography>{i.author[0].name}</Typography>
                                 </Link>
-                                {userId === i.author[0]._id ? 
-                                    <>
-                                
-                                        <DeleteIcon sx={{'&:hover':{color:'red', cursor:'pointer'}}} onClick={() => deleteReview(i._id)}/>
-                                    </> : idAuthor === userId ? <>
-                                        <DeleteIcon sx={{'&:hover':{color:'red', cursor:'pointer'}}} onClick={() => deleteReview(i._id)}/>
-                                    </> : <></>
-                                }
-                                {/* {userId}, post:{idAuthor}, {i.author[0]._id} */}
+                                <Box>
+                                    
+                                    <FavoriteIcon/>
+                                    {userId === i.author[0]._id ? 
+                                        <>
+                                    
+                                            <DeleteIcon sx={{'&:hover':{color:'red', cursor:'pointer'}}} onClick={() => deleteReview(i._id)}/>
+                                        </> : idAuthor === userId ? <>
+                                            <DeleteIcon sx={{'&:hover':{color:'red', cursor:'pointer'}}} onClick={() => deleteReview(i._id)}/>
+                                        </> : <></>
+                                    }
+                                    {/* {userId}, post:{idAuthor}, {i.author[0]._id} */}
+                                </Box>
                                 </Box>
                             <Typography>{i.content}</Typography>
                         </Box>

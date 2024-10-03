@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import {Box, TextField, Button, Typography, Link, Snackbar, SnackbarContent, Container, Card, CardMedia} from '@mui/material';
+import {Box, TextField, Button, Typography, Link, Snackbar, SnackbarContent, Container, Card, CardMedia, Divider} from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const All = () => {
@@ -36,6 +36,7 @@ const All = () => {
         display:'flex',
         flexDirection:'column',
         alignItems:'center',
+        
     }
 
     const box ={
@@ -48,7 +49,7 @@ const All = () => {
             lg:'50%'
         },
         gap:'10px', marginBottom:'15px', padding:'1rem',
-        backgroundColor:'rgba(0,0,0,0.1)',
+        // backgroundColor:'rgba(0,0,0,0.1)',
 
     }
 
@@ -59,6 +60,7 @@ const All = () => {
 
     return(
         <>
+
             <Container sx={form}>
                 {post.map((p, i) => (
                         <Box sx={box} key={i}>
@@ -69,8 +71,9 @@ const All = () => {
                                         image={p.imagePost[0].url}/>
                                 </Card>
                             </Link>
-                            <Box sx={{display:'flex', flexDirection:'column', gap:'10px'}}>
-                                <Box>
+                            <Box sx={{borderRadius:'10px', padding:'7px', display:'flex', flexDirection:'column', gap:'10px', backgroundColor:'rgba(0,0,0,0.1)'}}>
+                                <Box sx={{display:'flex', gap:'1rem', borderRadius:'10px'}}>
+                                    <Typography>{p.likes.length} Likes</Typography>
                                     {p.likes.some((l) => l._id === userId) ? 
                                     <>
                                         <FavoriteIcon 
@@ -88,7 +91,6 @@ const All = () => {
                                         />
                                     </>}
                                     
-                                    <Typography>Like: {p.likes.length}</Typography>
                                 </Box>
                                 <Box>
                                     <Link href={`/profile/${p.author[0]._id}`} sx={link}><Typography sx={{fontWeight:'bold'}}>{p.author[0].name}</Typography></Link>
@@ -96,9 +98,11 @@ const All = () => {
                                 </Box>
 
                             </Box>
+                            <Divider sx={{marginY: 2}} /> 
                         </Box>
                     ))}
             </Container>
+
         </>
     )
 }
