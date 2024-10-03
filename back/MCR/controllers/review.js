@@ -15,24 +15,17 @@ const create = async(req,res) => {
     // get the author
         const author = req.user.userId
         const user = await User.findById(author)
-        review.author = {_id: author, name: user.name};
-        console.log(user)
-    // post.reviews = {_id: author._id, name: author.name};
-    // review.author = user
-
-    // review
-    // post.reviews.push({ 
-    //     _id: author._id,
-    //     name: author.name,
-    // })
-    // post.reviews.push({_id:content._id, name: author.name})
-
+        review.author = {
+            _id: author, 
+            name: user.name, 
+            ownerPost: post.author[0]._id
+        };
 
     post.reviews.push(review)
     await post.save()
     await review.save()
 
-    // console.log(review)
+    console.log(review)
 
     res.status(200).send({message:'Review created', review})
     

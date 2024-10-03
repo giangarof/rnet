@@ -18,6 +18,6 @@ import {
 router.post('/create/:id', protect, asyncHandler(create))
 router.post('/like/:reviewId', protect, asyncHandler(like))
 router.put('/:reviewId', protect, asyncHandler(update))
-router.delete('/delete/:reviewId', protect, Admin_Or_Owner_Review, asyncHandler(deleteReview))
+router.delete('/delete/:reviewId/', protect, Admin_Or_Owner_Review, asyncHandler(deleteReview))
 
 export default router;

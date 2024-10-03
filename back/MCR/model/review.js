@@ -1,4 +1,5 @@
 import {Schema, mongoose} from 'mongoose'; 
+import { type } from 'os';
 
 const reviewSchema = new mongoose.Schema({
     author:[{
@@ -9,6 +10,9 @@ const reviewSchema = new mongoose.Schema({
         name:{
             type:String
         },
+        ownerPost:{
+            type:String
+        }
     }],
     content:{
         type:String

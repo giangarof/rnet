@@ -59,6 +59,8 @@ const Post = () => {
     useEffect(() => {
         fetching()
     },[])
+
+
     const form = {
         // backgrounColor:'red',
         marginTop:'8rem',
@@ -69,9 +71,13 @@ const Post = () => {
             xs:'100%',
             md:'50%'
         }
-        
-        
     } 
+
+    const name = {
+        textDecoration:'none', 
+        cursor:'pointer', 
+        color:'#3279a8'
+    }
     
     return (
         <>
@@ -84,7 +90,7 @@ const Post = () => {
                     }}>
                     {post ?
                         <Typography sx={{padding:'10px 0px 10px 0px'}}>
-                            <Link href={`/profile/${idAuthor}`} sx={{textDecoration:'none', cursor:'pointer', color:'#3279a8'}}>
+                            <Link href={`/profile/${idAuthor}`} sx={name}>
                                 {post.author[0].name}
                             </Link>
                          </Typography>
@@ -169,9 +175,19 @@ const Post = () => {
                     {post.reviews?.map((i, k) => (
                         <Box key={k} sx={{backgroundColor:'rgba(0,0,0,0.06)', padding:'7px', borderRadius:'12px'}}>
                             <Box sx={{display:'flex', justifyContent:'space-between'}}>
-                                <Typography>{i.author[0].name}</Typography>
-                                <DeleteIcon sx={{'&:hover':{color:'red', cursor:'pointer'}}} onClick={() => deleteReview(i._id)}/>
-                            </Box>
+                                <Link href={`/profile/${i.author[0]._id}`} sx={name}>
+                                    <Typography>{i.author[0].name}</Typography>
+                                </Link>
+                                {userId === i.author[0]._id ? 
+                                    <>
+                                
+                                        <DeleteIcon sx={{'&:hover':{color:'red', cursor:'pointer'}}} onClick={() => deleteReview(i._id)}/>
+                                    </> : idAuthor === userId ? <>
+                                        <DeleteIcon sx={{'&:hover':{color:'red', cursor:'pointer'}}} onClick={() => deleteReview(i._id)}/>
+                                    </> : <></>
+                                }
+                                {/* {userId}, post:{idAuthor}, {i.author[0]._id} */}
+                                </Box>
                             <Typography>{i.content}</Typography>
                         </Box>
                     ))}

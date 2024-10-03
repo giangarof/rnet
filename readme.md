@@ -8,9 +8,10 @@
 
     To do - {
 
+        fix index 
+
         reviews
             like reviews
-            Add link to user review
 
         Display messages if necessary
             Comment added   rev
