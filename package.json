@@ -5,7 +5,8 @@
   "scripts": {
     "back": "nodemon back/index.js",
     "front": "npm run dev --prefix front",
-    "dev": "concurrently \"npm run back\" \"npm run front\""
+    "dev": "concurrently \"npm run back\" \"npm run front\"",
+    "build": "npm install & npm install --prefix front && npm run build --prefix front"
   },
   "author": "",
   "license": "ISC",
