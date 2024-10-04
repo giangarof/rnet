@@ -8,6 +8,25 @@
 
     To do - {
 
+        login/sign up 
+            hide password
+
+        update form | User
+            Improve functionality 
+        
+        User profile
+            Delete `No post's`
+            display followers/following
+            Settings
+                Delete User
+                Update
+
+        Post
+            Reverse order
+            Add date
+            Add comment length
+            Add a comment link
+
         Admin privileges 
 
         Display messages if necessary
