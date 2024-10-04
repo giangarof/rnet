@@ -3,18 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/index.js",
     "back": "nodemon back/index.js",
     "front": "npm run dev --prefix front",
     "dev": "concurrently \"npm run back\" \"npm run front\"",
-    "build": "npm install & npm install --prefix front && npm run build --prefix front"
+    "build": "npm install && npm install --prefix back && npm install --prefix front && npm run build --prefix front"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "concurrently": "^8.2.2",
-    "express": "^4.21.0",
     "nodemon": "^3.1.4"
   }
 }
