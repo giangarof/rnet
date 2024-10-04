@@ -52,5 +52,5 @@ if(process.env.NODE_ENV === 'production'){
 // })
 
 // Running the app
-const port = 8000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`running, port ${port}`))
