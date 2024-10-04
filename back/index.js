@@ -28,9 +28,9 @@ app.use('/api/review', review)
 // Error handling
 
 // Using the custom Error handler for all the possible routes 
-app.all('*', (req,res,next) => {
-    next(new ExpressError('Page Not Found, try again.', 404))
-});
+// app.all('*', (req,res,next) => {
+//     next(new ExpressError('Page Not Found, try again.', 404))
+// });
 
 if(process.env.NODE_ENV === 'production'){
     const __dirname = path.resolve();
