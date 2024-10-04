@@ -32,6 +32,18 @@ app.all('*', (req,res,next) => {
     next(new ExpressError('Page Not Found, try again.', 404))
 });
 
+if(process.env.NODE_ENV === 'production'){
+    const __dirname = path.resolve();
+    //set static folder
+    app.use(express.static(path.join(__dirname, 'front/dist')))
+    //any route that is not api will be redirected to index.html
+    app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'front', 'dist', 'index.html')))
+} else {
+    app.get('/', (req,res) => {
+        res.send('API is running.')
+    })
+}
+
 // Here I'm using app.use() to destructure the -err- parameter
 // app.use((err, req,res, next) => {
 //     const {status=500, msg = 'something went wrong'} = err;
