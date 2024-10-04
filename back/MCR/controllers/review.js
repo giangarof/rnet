@@ -69,11 +69,11 @@ const deleteReview = async(req,res) => {
 
 const like = async(req,res) => {
     const {reviewId} = req.params;
-    const user = req.user._id
+    const user = req.user.userId
 
     const review = await Review.findById(reviewId)
 
-    const like = review.likes.some((x) => {return x.equals(user._id) })
+    const like = review.likes.some((x) => {return x.equals(user) })
 
     try {
         if(like){

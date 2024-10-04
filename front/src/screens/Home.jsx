@@ -28,9 +28,20 @@ function Home(){
                         <Link href='/home'>
                             <Typography>See all posts</Typography>
                         </Link>
-                        <Link href={`/profile/${id}`}>
-                            <Typography>Your Profile</Typography>
-                        </Link>
+
+                        {id ? <>
+                            <Link href={`/profile/${id}`}>
+                                <Typography>Your Profile</Typography>
+                            </Link>
+                        
+                        </> : <>
+                            <Link href={`/login`}>
+                                <Typography>Login</Typography>  
+                            </Link>
+                            <Link href={`/signup`}> 
+                                <Typography>Signup</Typography>
+                            </Link>
+                        </>}
                     </Box>
                 </Box>
             </Container>

@@ -52,6 +52,16 @@ const Post = () => {
         }
     }
 
+    const likedRev = async(id) => {
+        try {
+            const data =  await axios.post(`/api/review/like/${id}`)
+            console.log(data)
+            fetching()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const gotoUpdate = async (id) => {
         navigate(`/post/update/${id}`)
     }
@@ -179,8 +189,20 @@ const Post = () => {
                                     <Typography>{i.author[0].name}</Typography>
                                 </Link>
                                 <Box>
+                                    <Typography>{i.likes?.length} Likes</Typography>
+                                    {i.likes.some((l) => l._id === userId) ? <> 
+                                        <FavoriteIcon sx={{
+                                            color:'red', cursor:'pointer'
+                                            }}
+                                            onClick={() => likedRev(i._id)}/>
+                                    </> : <> 
+                                        <FavoriteIcon sx={{
+                                            '&:hover':{color:'red', cursor:'pointer'}
+                                            }}
+                                            onClick={() => likedRev(i._id)}/>
+                                    </>}
+
                                     
-                                    <FavoriteIcon/>
                                     {userId === i.author[0]._id ? 
                                         <>
                                     

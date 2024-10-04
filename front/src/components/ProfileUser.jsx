@@ -39,7 +39,8 @@ const ProfileUser = () =>{
 
     const follow = async() => {
         const res = await axios.post(`/api/user/follow/${userId}`)
-        location.reload()
+        profile()
+        // location.reload()
         // console.log(res)
     }
     const isFollowing = user.followers?.some(follower => follower === identification);

@@ -8,10 +8,7 @@
 
     To do - {
 
-        fix index 
-
-        reviews
-            like reviews
+        Admin privileges 
 
         Display messages if necessary
             Comment added   rev
